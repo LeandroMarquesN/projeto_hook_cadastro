@@ -1,0 +1,14 @@
+
+Aula USeMeno
+
+referência: https://alunos.workover.com.br/courses/847/lessons/16036
+
+useMemo:
+Uma das possibilidades com o React Hooks é o useMemo, que utiliza uma técnica já conhecida chamada memoization, que consiste em guardar o valor de retorno de uma função a partir dos valores de entrada (Parâmetros). Ou seja, se uma função de soma recebe os parâmetros 2 e 3 e retorna 5, esses valores serão armazenados e, quando essa função for chamada com os mesmos parâmetros, ela não precisará refazer o cálculo para obter o valor de retorno, já que este estará armazenado.
+
+caso queira ver um exemplo masi detalhado indico este site: 
+
+https://medium.com/reactbrasil/react-usememo-na-pr%C3%A1tica-692110771c01 
+
+////Voltando para aulaa /////
+Essa aula foi dividia em 2 partes recomendo que veja novamente 

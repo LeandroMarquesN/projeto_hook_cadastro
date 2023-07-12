@@ -1,0 +1,18 @@
+form {
+  width: 50%;
+  margin: 5% auto;
+}
+
+form input {
+  margin-top: 10px;
+}
+form input[type='button']{
+  margin-right: 10px;
+}
+.pesquisa {
+  width: 50%;
+  margin: 5% auto;
+}
+body{
+  background-color:#D4F2DB ;
+}

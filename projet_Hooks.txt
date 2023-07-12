@@ -1,0 +1,999 @@
+
+
+projeto Hooks 
+
+neste projeto vamos criar um cadastro de usuarios bem simples onde vamos usar os conceitos aprendidos neste curso sobre os hooks.
+onde vamos manipular os dados de nome cidade e idade;
+
+vamos comecar criando uma pasta "projeto_hooks"
+
+agora dentro da pastavamso criar o nosso projeto dando o comando :
+
+npx create-react-app projeto_hooks;
+
+e será criado o nosso projeto.
+
+
+Agora para deixar o nosso layout mais interessante vamos instalar um abiblioteca css chamada de Bootstrap que nada masi é do que um link que vai conter classnamesja pre-configuradas para fazilitar nosso trabalho com css.
+
+para isso vamos acessar o cite : getBootstrap.com
+
+vamos procura o link css 
+vamos colar este link em nosso html:
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+
+vamos proocura na nossa pasta publick o arquivo index.js e colar o link acima.
+vamos colar este link abaixo da tag <title></title>
+
+
+Bom agora que foi criado  a nossa pasta de projeto  chamada "projeto_hooks";
+
+vamos entrar dentro dela e dar o comando : npm star;
+
+
+Agora dentro da pasta vamos abrir com visual studio code;
+
+e vamos dentro da pasta src e procurar o arquivo App.js 
+
+E vai ser por ele que vamos dar o começo de tudo;
+
+
+////////////////////////////////////////////////////////////////
+referencia da aula: https://alunos.workover.com.br/courses/847/lessons/16042
+
+neta aula vamos criar o componente de formulario:
+dentro da nossa pasta src vamos criar o arquivo formulario.jsx
+
+que ficaraá assim:
+
+import React from "react";
+
+function Formulario() {
+
+
+
+
+    return(
+        <form>
+            <input type='text' placeholder="Nome" className ='form-control' />
+            <input type='text' placeholder="idade" className ='form-control' />
+            <input type='text' placeholder="Cidade" className ='form-control' />
+
+            <input type="button" value='Cadastrar' className="btn btn-primary" />
+            <input type="button" value='Alterar'  className="btn btn-secondary" />
+            <input type="button" value='Excluir'  className="btn btn-danger" />
+            <input type="button" value='Cancelar' className="btn btn-success" />
+
+        </form>
+
+    );
+
+}
+
+
+// Exportar
+export default Formulario;
+
+
+agora vamos em nosso arquivo App.js e vamos modificalo para que fique assim;
+
+
+// Importando modulos
+import React, { Component } from 'react';
+
+
+// Importando Css
+import './App.css';
+
+// Importando Componentes
+import Formulario from './formulario';
+
+
+// Criando a classe
+class App extends Component {
+
+  render() {
+
+    return (
+
+
+      <Formulario />
+
+
+    );
+  }
+}
+
+export default App;
+
+
+Agora o nosso arquivo de index.js tem que ficar assim:
+
+import React from 'react';
+import ReactDOM from 'react-dom';
+import App from './App';
+import './index.css';
+
+ReactDOM.render(
+  <App />,
+  document.getElementById('root')
+);
+
+
+perceba que este arquivo index.js esta usando  o arquivo app.js como componente 
+
+onde os componentes que vamos criar vamos importalo em nosso arquivo App.js 
+
+Sendo assim o nosso arquivo fica mais limpo tendo um unico componente responssavel pela aplicação inteira.
+
+
+Agora que ja temos tudo pronto:
+
+vamos customizar o nosso arquivo app.css 
+
+pois ainda não esta legal , e para isso vamos apagar tudo que está dentro de App.css e modificalo.
+
+vamos deixar o nosso arquivo App.css desta maneira:
+
+form {
+  width: 50%;
+  margin: 5% auto;
+}
+
+form input {
+  margin-top: 10px;
+}
+form input[type='button']{
+  margin-right: 10px;
+}
+
+
+////////////////////////////////////////////////////////////////////////////////
+ referncia desta aula: https://alunos.workover.com.br/courses/847/lessons/16043
+ 
+ vamos criar o componente de tabela;
+ 
+ 
+ nesta aula vamos aprendercomo listar os dados dos ususarios;
+ 
+ 
+ dentro da pasta src vamos cira um arquivo chamado de tabela.jsx
+ 
+ import React from "react";
+
+// Componente
+
+function Tabela() {
+
+
+    // retornar
+    return(
+        <table className="table">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Nome</th>
+                    <th>Idade</th>
+                    <th>Cidade</th>
+                    <th>Selecionar</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                
+            </tbody>
+
+        </table>
+    );
+}
+export default Tabela;
+
+onde table e a tabela.
+thead e o cbecalho da tabela
+tr e a tag responssavel pelas linhas
+th e a tag reponssavel pelas colunas
+
+e o tbody será o corpo da tabela
+
+
+Agora temos o nosso front-End pronto de maneira statica agora vamso colcoar nossos Hooks em ação.
+
+
+//////////////////////////////////////////////////////////////////
+
+aula 
+referencia : https://alunos.workover.com.br/courses/847/lessons/16044
+
+nessa aula vamos trabalhar como os botoes para que somente o botao de cadastro esteja visivel ao usuario e futuramente vamos habilitar para que os outros bottoes estajam visiveis
+
+E para isso vamos trabalhar inicialmente com nosso arquivo App.js
+
+onde vamos fazer o import dos nosso Hooks. useState.
+
+E nosso arquivo App.jsx vai ficar assim:
+
+tive que alteralo para que ele possar ser rendernizado corretamente.
+por isso fui obrigado a substituir a class por uma function
+
+
+// Importando Hooks
+import { useState } from 'react';
+
+
+// Importando Css
+import './App.css';
+
+// Importando Componente Formulario
+import Formulario from './formulario';
+
+// Importando Componente tabela
+import Tabela from './tabela';
+
+
+// Criando o coponente principal App
+function App() {
+
+
+  // useState 
+  // A ideia aqui é que toda vexz que meu btncadastrar valer true ele será visivel ao usuario e os demais nao visiveis
+  const [btnCadastrar, setBtncadastrar] = useState(true);
+
+  // Retorno
+  return (
+    < React.StrictMode>
+
+      <Formulario btncadastrar={btnCadastrar} />
+      <Tabela />
+
+    </React.StrictMode>
+  );
+}
+
+
+export default App;
+//////////////////////////////////////////////////////////////////
+
+ja o nosso arquivo de formulario ficou assim:
+
+import React from "react";
+
+function Formulario({btncadastrar}) {
+
+
+
+
+    return(
+        <form>
+            <input type='text' placeholder="Nome" className ='form-control' />
+            <input type='text' placeholder="idade" className ='form-control' />
+            <input type='text' placeholder="Cidade" className ='form-control' />
+
+            {/* Aqui vamos poder colocar uma condicional ou um operador ternario onde vamos usar o operardor ternario */}
+            {
+            //Essa linha é um comentario onde na linha onde tenho somente o btnCadastrar e uma condicional que equivale a btnCadastrar === true
+            onde nao preciso fazer isso pois ele altoamticamente entende que isso pode ser true ou false simplesmente colocando o  nome da variavel //
+            
+                btncadastrar
+                ?
+                <input type="button" value='Cadastrar' className="btn btn-primary" />
+                :
+                <div>
+                    <input type="button" value='Alterar'  className="btn btn-secondary" />
+                    <input type="button" value='Excluir'  className="btn btn-danger" />
+                    <input type="button" value='Cancelar' className="btn btn-success" />
+                </div>
+            }
+
+
+        </form>
+
+    );
+    
+    aula finalizada 
+    
+    ////////////////////////////////////////////////////
+    
+    
+    proxima aula:
+    
+    referencia : https://alunos.workover.com.br/courses/847/lessons/16045
+    
+    nesta aula vams criar os 3 states correspondenters a nome idade e cidade
+    
+    onde vamos criar esses 3 states no App.jsx pois ele e o intermediario entre os componentes formulario e tabela pois toda vez qeu o formulario for cadastrado automaticamente na tabela deve conter esse registro.
+    
+    E o  nosso arquivo App.jsx vai ficar assim:
+    
+    
+// Importando modulos
+import React from 'react';
+
+
+// Importando Hooks
+import { useState } from 'react';
+
+
+// Importando Css
+import './App.css';
+
+// Importando Componente Formulario
+import Formulario from './formulario';
+
+// Importando Componente tabela
+import Tabela from './tabela';
+
+
+// Criando o coponente principal App
+function App() {
+
+
+  // useState 
+  // A ideia aqui é que toda vexz que meu btncadastrar valer true ele será visivel ao usuario e os demais nao visiveis
+  const [btnCadastrar, setBtncadastrar] = useState(true);
+
+  const [nome, setNome] = useState('');
+  const [idade, setIdade] = useState('');
+  const [cidade, setCidade] = useState('');
+
+  // Retorno
+  return (
+    < React.StrictMode>
+
+      <h3>{nome}</h3>
+      <h3>{idade}</h3>
+      <h3>{cidade}</h3>
+
+      <Formulario
+        btncadastrar={btnCadastrar}
+        setNome={setNome}
+        setIdade={setIdade}
+        setCidade={setCidade}
+      />
+      <Tabela />
+
+    </React.StrictMode>
+  );
+}
+
+
+export default App;
+
+/////////////////////////////////////////////
+
+E o nosso arquivo formulario.jsx vai ficar assim:
+
+import React from "react";
+
+function Formulario({btncadastrar ,setNome, setIdade, setCidade}) {
+
+
+
+
+    return(
+        <form>
+            <input type='text' placeholder="Nome" className ='form-control'
+             onChange={e=> setNome(e.target.value)}/>
+
+            <input type='text' placeholder="idade" className ='form-control' 
+            onChange={e => setIdade(e.target.value)}/>
+            
+            <input type='text' placeholder="Cidade" className ='form-control' 
+            onChange={e => setCidade(e.target.value)}/>
+
+            {/* Aqui vamos poder colocar uma condicional ou um operador ternario onde vamos usar o operardor ternario */}
+
+            {
+                btncadastrar
+                ?
+                <input type="button" value='Cadastrar' className="btn btn-primary" />
+                :
+                <div>
+                    <input type="button" value='Alterar'  className="btn btn-secondary" />
+                    <input type="button" value='Excluir'  className="btn btn-danger" />
+                    <input type="button" value='Cancelar' className="btn btn-success" />
+                </div>
+            }
+
+
+        </form>
+
+    );
+
+}
+
+
+// Exportar
+export default Formulario;
+
+
+///////////////////////////////////////////////////////////
+
+referencia da aula: https://alunos.workover.com.br/courses/847/lessons/16046
+
+parte 6
+
+nesta aula de fato iremos fazer o cadastramento dos nossos usuarios.
+
+
+E em nosso arquivo App.jsx vamos criar um state responssavel pelo armazenamento das informações dos usuarios.
+
+E para isso vamos trabalhar com  o vetor;
+
+E nosso arquivo App.jsx está assim:
+
+
+
+// Importando modulos
+import React from 'react';
+
+
+// Importando Hooks
+import { useState } from 'react';
+
+
+// Importando Css
+import './App.css';
+
+// Importando Componente Formulario
+import Formulario from './formulario';
+
+// Importando Componente tabela
+import Tabela from './tabela';
+
+
+// Criando o coponente principal App
+function App() {
+
+
+  // useState 
+  // A ideia aqui é que toda vexz que meu btncadastrar valer true ele será visivel ao usuario e os demais nao visiveis
+  const [btnCadastrar, setBtncadastrar] = useState(true);
+
+  const [nome, setNome] = useState('');
+  const [idade, setIdade] = useState('');
+  const [cidade, setCidade] = useState('');
+
+  const [vetor, setVetor] = useState([]);
+
+  // funcao para efetuar o cadastro
+
+  const cadastrar = () => {
+    // Aqui dentro vamos criar um objeto com as caracteristicas nome, idade e cidade onde cada caracteristica vai pegar as respectivas states
+    let obj = {
+      'nome': nome,
+      'idade': idade,
+      'cidade': cidade,
+    }
+    // Agora vamos adicionar ao vetor 
+    // Uma dica se colocarmos nos parametro do setVetor(obj) ele  vai armazenar omente um unico objeto e nao um conjunto de objetos então colocamos setVetor([...vetor, obj]) e dentro colocamos o colchetes e dentro do colchetes ooperador spred (...) masi seguido da variavel vetor , entao damos uma virgula e colocamos o objeto.
+    // onde usando ooperador spred ele vai lista todos os objetos que contenham o vetor e depois ele adiciona um novo obejto
+    setVetor([...vetor, obj])
+
+  }
+
+
+  // Retorno
+  return (
+    < React.StrictMode>
+      <h1>Visualizar o vetor que está sendo cadastrado</h1>
+      <h1>{JSON.stringify(vetor)}</h1>
+
+
+      <Formulario
+        btncadastrar={btnCadastrar}
+        setNome={setNome}
+        setIdade={setIdade}
+        setCidade={setCidade}
+        cadastrar={cadastrar}
+      />
+      <Tabela />
+
+    </React.StrictMode>
+  );
+}
+
+
+export default App;
+
+
+////////////////////////////////////////////
+
+Agora vamos para o nosso arquivo formulario.jsx
+
+e a modificação que será feita neste arquivo será que no botao de cadastro vamos adcionar o evento onclick para que possa ser chamada a função cadastrar mas que para isso acontessa devemos passas a funcao cadastrar no nosso parametro tanto para passala quanto para recebela
+
+nosso arquivo ficara assim:
+
+import React from "react";
+
+function Formulario({btncadastrar ,setNome, setIdade, setCidade, cadastrar}) {
+
+
+
+
+    return(
+        <form>
+            <input type='text' placeholder="Nome" className ='form-control'
+             onChange={e=> setNome(e.target.value)}/>
+
+            <input type='text' placeholder="idade" className ='form-control' 
+            onChange={e => setIdade(e.target.value)}/>
+
+            <input type='text' placeholder="Cidade" className ='form-control' 
+            onChange={e => setCidade(e.target.value)}/>
+
+            {/* Aqui vamos poder colocar uma condicional ou um operador ternario onde vamos usar o operardor ternario */}
+
+            {
+                btncadastrar
+                ?
+                <input type="button" value='Cadastrar' className="btn btn-primary" 
+                onClick={cadastrar}
+                />
+                :
+                <div>
+                    <input type="button" value='Alterar'  className="btn btn-secondary" />
+                    <input type="button" value='Excluir'  className="btn btn-danger" />
+                    <input type="button" value='Cancelar' className="btn btn-success" />
+                </div>
+            }
+
+
+        </form>
+
+    );
+
+}
+
+
+// Exportar
+export default Formulario;
+
+
+Agora vamos remover o Json.stringFy(vetor)
+pois ele so estava ali pormotivos didaticos
+
+fim da aula;
+
+//////////////////////////////////////////////////////////////////////////////
+
+Agora nesta aula vamos adicionar os atributo nome idade e cidade em nosso componente de tabela.
+Ou seja vamos estar listando nosso sregistros no componente de tabela;
+
+referencia: https://alunos.workover.com.br/courses/847/lessons/16047
+parte(7)
+
+
+Vamos em nosso arquivo App.jsx
+
+E vamos passar o nosso state vetor como propriedade par ao nosso componente tabela
+
+vamos passar em nosso componente <tabela> um parametro chamado vetor que recebera o state vetor que vai ficar assim:
+
+a nossa parte do componente tabela:
+
+  // Retorno
+  return (
+    < React.StrictMode>
+
+      <Formulario
+        btncadastrar={btnCadastrar}
+        setNome={setNome}
+        setIdade={setIdade}
+        setCidade={setCidade}
+        cadastrar={cadastrar}
+      />
+      <Tabela
+        vetor={vetor}
+      />
+
+    </React.StrictMode>
+  );
+}
+
+//////////////////////////////////////////////
+
+E o nosso arquivo completo está assim:
+
+// Importando modulos
+import React from 'react';
+
+
+// Importando Hooks
+import { useState } from 'react';
+
+
+// Importando Css
+import './App.css';
+
+// Importando Componente Formulario
+import Formulario from './formulario';
+
+// Importando Componente tabela
+import Tabela from './tabela';
+
+
+// Criando o coponente principal App
+function App() {
+
+
+  // useState 
+  // A ideia aqui é que toda vexz que meu btncadastrar valer true ele será visivel ao usuario e os demais nao visiveis
+  const [btnCadastrar, setBtncadastrar] = useState(true);
+
+  const [nome, setNome] = useState('');
+  const [idade, setIdade] = useState('');
+  const [cidade, setCidade] = useState('');
+
+  const [vetor, setVetor] = useState([]);
+
+  // funcao para efetuar o cadastro
+
+  const cadastrar = () => {
+    // Aqui dentro vamos criar um objeto com as caracteristicas nome, idade e cidade onde cada caracteristica vai pegar as respectivas states
+    let obj = {
+      'nome': nome,
+      'idade': idade,
+      'cidade': cidade,
+    }
+    // Agora vamos adicionar ao vetor 
+    // Uma dica se colocarmos nos parametro do setVetor(obj) ele  vai armazenar omente um unico objeto e nao um conjunto de objetos então colocamos setVetor([...vetor, obj]) e dentro colocamos o colchetes e dentro do colchetes ooperador spred (...) masi seguido da variavel vetor , entao damos uma virgula e colocamos o objeto.
+    // onde usando ooperador spred ele vai lista todos os objetos que contenham o vetor e depois ele adiciona um novo obejto
+    setVetor([...vetor, obj])
+
+  }
+
+
+  // Retorno
+  return (
+    < React.StrictMode>
+
+      <Formulario
+        btncadastrar={btnCadastrar}
+        setNome={setNome}
+        setIdade={setIdade}
+        setCidade={setCidade}
+        cadastrar={cadastrar}
+      />
+      <Tabela
+        vetor={vetor}
+      />
+
+    </React.StrictMode>
+  );
+}
+
+
+export default App;
+
+//////////////////////////////////////////////////////////////
+
+Agora vamos de fato no arquivo tabela.jsx
+
+E vamos implemetar as nossa tag <TBody>
+
+import React from "react";
+
+// Componente
+
+function Tabela({vetor}) {
+
+
+    // retornar
+    return(
+        <table className="table">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Nome</th>
+                    <th>Idade</th>
+                    <th>Cidade</th>
+                    <th>Selecionar</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {
+                    vetor.map(
+                        (obj,indice) => (
+                            <tr key={indice}>
+                                <td>{indice+1}</td>
+                                <td>{obj.nome}</td>
+                                <td>{obj.idade}</td>
+                                <td>{obj.cidade}</td>
+                                <td>
+                                    <button
+                                        className="btn btn-success"
+                                    >Selecionar</button>
+                                </td>
+                            </tr>
+                        )
+
+
+                    )
+                }
+            </tbody>
+
+        </table>
+    );
+}
+export default Tabela;
+
+perceba que nesta arquivo a tabela.jsx dentro da tag tbody
+temos as chaves e dentro das chaves estamos inplementando  o map que e uma função de array ou vetor
+
+
+
+////////////////////////////////////////////////////////////////////////////////
+
+referencia :
+https://alunos.workover.com.br/courses/847/lessons/16048
+
+Nesta ula vamos implementar a limpesa dos campos nome idade cidade
+pois toda vez que vamos cadastrar um novo usuario ate'esse momento temos que limpar os campos manualmente e isso não é um aexperiência boa pra o usuario
+
+
+E para resolvermos este problema vamos em nosso arquivo App.jsx e vamos procura pela função de cadastro.
+
+E vamso fazer algumas implementações;
+
+onde vai ficar assim:
+
+dentro do arquivo App.jsx  vamos procurar pela função cadasdtrar e vamos implemetar um valor vazio ao nossos states:
+
+    setNome('')
+    setIdade('')
+    setCidade('')
+
+vamos atribuir em nosso componente de formulario que está dentro do arquivo App.jsx 3 propriedades
+
+        nome={nome}
+        idade={idade}
+        cidade={cidade}
+        
+e depois no arquivo formulario.jsx vamos atribuir mais um atributo em nossos inputs que sera o :
+     value={nome}
+      value={idade}
+       value={cidade}
+       
+//////////////////////////////////////////////////////////////////////////////
+
+referencia https://alunos.workover.com.br/courses/847/lessons/16049
+       
+Parte 9
+
+E nesta aula vamos trabalhar como  o botao selecionar onde vamos cirar um afunção especifica paraa ele.
+
+
+em nosso arquivo App.jsx vamoa criar um state para pegar o indice do vetor
+
+  // Criar um state para pegar o indice do vetor
+  const [indiceVetor, SetIndiceVetor] = useState('');
+  
+Agora vamos criar a nossa função antes do retorno do compenete App():
+
+
+Bom criarmos um alert dentro da função apara executar um teste rapido
+
+  // Função para selecionar os usuario cadastrado
+  const selecionar = (indice) => {
+    alert(indice);
+  }
+
+E vamos passar ela via props em nosso componente tabela
+
+ <Tabela
+        vetor={vetor}
+        selecionar={selecionar}
+      />
+
+Agora vamos para de fator emnosso arquivo tabela.jsx
+vamos chamar a props selecionar assim:
+
+function Formulario({btncadastrar ,setNome, setIdade, setCidade, cadastrar,nome,idade,cidade, selecionar}) 
+
+Agora dentro do (map) vamos chamar a função atraves do envento onClick que vai ficar assim:
+
+E um acoisa muito importante qundo vamos trabalahr com uma função que tenha parametro nos não conseguimos chamar a função diretamente assim 
+
+                                    <button
+                                        className="btn btn-success"
+                                        onClick={selecionar()}
+                                    >Selecionar</button>
+devemos trabalahar da maneira abaixo:
+
+                                    <button
+                                        className="btn btn-success"
+                                        onClick={()=>selecionar()}
+                                    >Selecionar</button>
+                                    
+usamos um a aerow function e passamos a função selecionar() como callBacck
+Essa será a maneira correta 
+
+E finalmente passamoso parametro indice para descobrir o  indice da tabela
+
+<button
+                                        className="btn btn-success"
+                                        onClick={()=>selecionar(indice)}
+                                    >Selecionar</button>
+                                    
+Agora voltamos em nosso arquivo App.jsxc e vamos de fato implementar a nossa fun]ao Selecionar()
+
+vamos remover o alert e passar os dados condixentes aos nosso states
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+       
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    
+    
+
+}
+
+
+// Exportar
+export default Formulario;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+
+
+

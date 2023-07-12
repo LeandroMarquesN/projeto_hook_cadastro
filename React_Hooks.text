@@ -1,0 +1,154 @@
+﻿Curso de React-Hooks :
+https://alunos.workover.com.br/courses/847/lessons/16023 
+
+login : leandromarques.n@gmail.com
+senha:389922maria  ou mariarosa389922
+
+referebcia do react:
+https://react.dev/ 
+
+
+agora para ver sobre react-hooks:
+https://react.dev/reference/react 
+
+
+State Hooks 
+
+
+
+React Hooks 03 - Configurando o ambiente
+Para começarmos precisamos que o node esteja instalado e  npm  tambem.
+
+Depois de criar uma pasta para armazenar a outra pasta que vamos criar abra o terminal dentro desta pasta .
+
+E inicie o projeto como o comando:
+
+
+npx create-react-app (nome da pasta do projeto)
+
+será apresentado está tela no terminal:
+
+Creating a new React app in /home/usuario/curso de  React-hooks/
+curso_react_hooks. 
+
+Installing packages. This might take a couple of minutes. 
+Installing react, react-dom, and react-scripts... 
+
+
+added 994 packages in 2m 
+
+32 packages are looking for funding 
+ run `npm fund` for details 
+
+Success! Created curso_react_hooks at /home/usuario/curso de  Re
+act-hooks/curso_react_hooks 
+Inside that directory, you can run several commands: 
+
+ npm start 
+   Starts the development server. 
+
+ npm run build 
+   Bundles the app into static files for production. 
+
+ npm test 
+   Starts the test runner. 
+
+ npm run eject 
+   Removes this tool and copies build dependencies, configurati
+on files 
+   and scripts into the app directory. If you do this, you can’
+t go back! 
+
+We suggest that you begin by typing: 
+
+ cd curso_react_hooks 
+ npm start 
+
+Happy hacking! 
+
+Note: the project was bootstrapped with an old unsupported versi
+on of tools.                                                     
+Please update to Node >=14 and npm >=6 to get supported tools in
+new projects.   
+
+
+
+Use estes comando para dar entrada no servidor da sua aplicação:
+
+ cd curso_react_hooks 
+ npm start 
+
+
+React Hooks 04 - Utilizando o useState
+https://alunos.workover.com.br/courses/847/lessons/16024 
+dentro da pasta do projeto Curso_react_hooks vamos dentro da pasta SRC e criar masis uma pasta chamada Hooks  e vamos criar um arquivo Ex01_useState.js 
+
+bom depois de criado  o arquivo ele vai ficar assim:
+
+//Importar modulo react e 0 hook usState
+import React , {useState}from "react";
+
+//Função 
+
+function Ex01_UseState(){
+
+//UseState ==> é um avariavel dinamica
+const [text,setText] = useState('Hello World');
+
+//retorno
+return(
+<div>
+<p>{text}</p>
+</div>
+)
+}
+
+//Exportar a nossa função
+export default Ex01_UseState;
+
+
+E agora vamos em nosso arquivo index.js e vamos importar este nosso componente.
+import React from 'react';
+import ReactDOM from 'react-dom';
+import App from './App';
+import './index.css';
+import Ex01_UseState from './Exemplo_Hooks/Ex01_UseState';
+
+ReactDOM.render(
+<Ex01_UseState />,
+document.getElementById('root')
+);
+
+
+Note que fizemos a importação e colocamos dentro do nosso reactDom.render() 
+
+Agora vamos trabalhar com a constante setText  para trabalhar com a variavel dinamicamente.
+
+//Importar modulo react e 0 hook usState
+import React , {useState}from "react";
+
+//Função 
+
+function Ex01_UseState(){
+
+//UseState ==> é um avariavel dinamica
+const [text,setText] = useState('Hello World');
+
+const evento = (e) => {
+setText(e.target.value);
+}
+
+//retorno
+return(
+<div>
+<input type="text" onChange={evento} />
+<p>{text}</p>
+</div>
+)
+}
+
+//Exportar a nossa função
+export default Ex01_UseState;
+
+
+Com esse codigo o nosso componente inicia com a string hello world  porem ao digiar no input  conseguimos alterar  dinamicamente  a variavel graçãs  ao use state  e a manipulação do evento onchange

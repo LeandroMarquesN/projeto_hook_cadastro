@@ -1,0 +1,94 @@
+Nesta aula vamos trabalhar com o UseRef
+
+ref: https://alunos.workover.com.br/courses/847/lessons/16034
+
+Esse HOok é muito interessante pois podemos manipular elementos html sem precisar realizar um render
+
+Quando temos um state todo o nosso componente e atualizado e isso não é bom ainda mais quando temos um sistema grande . isso tem muito aver com a performance!!
+
+Em alguns momentos nos so precisamos fazer uma alteração em um input ou text-area uma div um paragrafo entre outros elementos.
+
+
+um uso muito comum desse hook é em formularios. utilizamos o Dom e podemos alterar caracteristicas de elementos html como cores, bordas , sombras, adicionar remover textos entre outras funcionaliades.
+
+agora para exemplificar vamos crira um arquivo chamdao Ex08_useRef.jsx
+
+e como de costume vamos chamlo em nosso idex.js
+
+E o  nosso codigo está assim:
+
+// Importando modulos
+
+import React, {useRef} from "react";
+
+
+// Função
+
+function Ex08_useref(){
+    // Agora vamos criar um objeto para podermos trabalhar com o useRef
+
+    // useRef
+    const elemento = useRef();
+    const elemento2 = useRef();
+
+    // Função
+    const acao = () =>{
+        // Com esse current conseguimos trabalhar com as caracteristicas do nosso input! E aqui vamos trabalhar com o focus para que quando clicado o nosso cursor fique piscando dentro do input
+        
+        elemento.current.focus();
+
+        // vamos adicionar outras caracteristicas por exemplo colocar uma borda vermelha
+        elemento.current.style.background ="red";
+        elemento.current.style.color ='white';
+        elemento.current.style.borderRadius ='0px';
+        elemento.current.value = 'Digite Algo!'
+       
+
+    }
+
+    const acao2 = () => {
+        elemento2.current.style.color ="white";
+     
+    }
+    const acao3 = () => {
+        elemento2.current.style.color="red";
+    }
+    
+    return(
+        <div className="Curso_React">
+            <div className="Ex">
+               <div className="container2">
+               
+                    <h1 ref={elemento2} onMouseOver={acao2} onMouseLeave={acao3} >Componente UseRef </h1>
+                    
+                    {/* No inout abaixo vamos colocar o parametro (ref) e atribuir a variavel (elemento) que criamos  */}
+                    
+                    <input type="text"  ref={elemento}/><br />
+                    
+                    {/* Agora vamso chamar a nossa função (acao) dentro do nosso input  button  fazendo ouso do evento Onclick */}
+                    
+                    <input type="button" value="Clique aqui" onClick={acao} /><br />
+               </div>
+            </div>
+        </div>
+    );
+}
+export default Ex08_useref;
+
+///////////////////////////
+Explicando o codigo:
+
+Veja no codigo que criamos um avariavel  chamda de :
+
+elemento => useRef() e veja que ela esta recebendo o Hook use reff onde 
+
+Agora na linha do input type text:
+
+  {/* No inout abaixo vamos colocar o parametro (ref) e atribuir a variavel (elemento) que criamos  para assim conseguirmos manipular as caracteristicas desse input , e isso é possivel pois como atribuimos o atributo (ref=elemento) Bem basico ele funciona como  um (id) */}
+                    
+                    <input type="text"  ref={elemento}/><br />
+
+e abaixo usamos um evento de onclick para chmar  a função acao() para ai podermos maipular as caracteristicas do input que atribuimos a palabra reservada ref=elemento
+
+
+

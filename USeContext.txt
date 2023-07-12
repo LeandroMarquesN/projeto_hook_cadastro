@@ -1,0 +1,725 @@
+referencia da aula:
+
+https://alunos.workover.com.br/courses/847/lessons/16030
+
+useContext:
+
+Quando usamos o useContext, podemos passar dados de um compnente para outro, porem não precisa ser de um compnente pai para filho ( onde há uma ligação direta entre componentes).
+
+sem usar o useContext  nos passamos os dados entre componentes utilizando o Props, porem temos que ir passando esses dados respeitando a hierarquia entre componentes que no caso é de pai para filho como se fosse uma herança onde os netos podem herdar as qualidades dos avos porem o  pai que está entre o avô e o neto tem que ter essa qualidade  caso não tenha, não será possivel passar a qualidade para o neto.
+
+E usando o UseContext podemos passar as propriedades diretamente sem termos que precisar respeitar a ordem hierarquica.
+
+vamos exemplificar passando os dados entre  componentes sem o usar o UseContext:
+
+Então vamos importar em nosso arquivo principal o nosso componete Ex07 :
+
+import React from 'react';
+import ReactDOM from 'react-dom';
+import './styles/curso.css';
+// import App from './App';
+// import Ex01_UseState from './Exemplo_Hooks/Ex01_UseState';
+import Ex02 from './Exemplo_Hooks/Ex02_UseeStatee.jsx';
+import Ex03 from './Exemplo_Hooks/Ex03_UseState.jsx';
+import Ex04 from './Exemplo_Hooks/Ex04_UseState';
+import Ex05 from './Exemplo_Hooks/Ex05_UseEffect';
+import Ex06 from './Exemplo_Hooks/Ex06_UseEffect';
+import Ex07 from './Exemplo_Hooks/Ex07_USeContext';
+
+
+ReactDOM.render(
+  <React.StrictMode>
+
+    < div className="painel" >
+      <h2>Painel de Componetes do Curso de React</h2>
+      <Ex02 />
+      <Ex03 />
+      <Ex04 />
+      <Ex05 />
+      <Ex06 />
+      <Ex07 />
+    </div >
+  </React.StrictMode>,
+  document.getElementById('root')
+);
+
+
+Agora em nosso componente  vamos exportalo para que fique visivel:
+
+//Importar modulos
+
+import React from "react";
+
+//Componente principal
+
+function ComponentePrincipal (){
+
+
+    
+    
+    
+    return(
+        <div className="Curso_React">
+            <div className="Ex">
+               <div className="container2">
+                    <h1>Compnente Principal</h1>
+               </div>
+            </div>
+        </div>
+    )
+
+}
+export default ComponentePrincipal;
+
+Agora que criamos nosso componente pricipal a ideia e criar os outros componentes para que possamos de fato passar os dados entre eles sem usar o useContext perceba que  em nosso componente nos não fizemos a importação do UseContext.
+
+
+dando continuidade.
+
+referencia: https://alunos.workover.com.br/courses/847/lessons/16031
+
+nos precisamos criar mais 3 componentes para exemplificar de fato.
+
+
+dentro do nosso componente principal vamos criar nossa primeira camada que sera a camada1 e ele será um function onde estaremos colocando um style inline.
+
+E tambeḿ criaremos mais 2 camadas dentro do nosso componente principal  onde o desafio e mostrar na nossa ultima camda os dados que estarão em nosso componente principal;
+
+
+
+bom o arquivo do nosso componente principal vai ficar assim:
+
+
+//Importar modulos
+import React from "react";
+
+//Componente principal
+function ComponentePrincipal (){
+
+
+    
+    
+    
+    return(
+        <div className="Curso_React">
+            <div className="Ex">
+               <div className="container2">
+                    <h1>Compnente Principal</h1>
+                    {/* Chamando o componente camada1 aqui dentro */}
+                    <Camada1/>
+               </div>
+            </div>
+        </div>
+    )
+
+}
+
+// primeira camada
+function Camada1(){
+
+    return(
+                        <div
+                            style={{
+                                backgroundColor:'red',
+                                width:'70%',
+                                heigth:'50%',
+                                color:'white',
+                                borderRadius:'8px',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                flexDirection: 'column',
+                                padding:'3px',
+                            }}
+                        >
+                            <h1>Camada 1</h1>
+                            {/* Cahamando o componente camanda2 */}
+                            <Camada2/>
+                        </div>
+    );
+}
+
+// Segunda Camada camada2
+
+function Camada2(){
+
+    return(
+                        <div
+                            style={{
+                                backgroundColor:'#FF784F',
+                                width:'70%',
+                                heigth:'50%',
+                                color:'white',
+                                borderRadius:'8px',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                flexDirection: 'column',
+                                padding:'3px',
+                            }}
+                        >
+                            <h3>Camada 2</h3>
+                            <Camada3 />
+                        </div>
+    );
+}
+
+// Ultimo Componente  camada3 
+
+function Camada3(){
+
+    return(
+                        <div
+                            style={{
+                                backgroundColor:'#74D3AE',
+                                width:'70%',
+                                heigth:'50%',
+                                color:'white',
+                                borderRadius:'8px',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                flexDirection: 'column',
+                                padding:'3px',
+                            }}
+                        >
+                            <h4>Camada 3</h4>
+
+                        </div>
+    );
+}
+
+// Exportando o modulo
+export default ComponentePrincipal;
+
+
+um aobservação:
+
+perceba que na div destacada estamos configurando o nosso css inline que fica como  um parametro dentro do corpo da nossa div:
+
+                        <div
+                            style={{
+                                backgroundColor:'#74D3AE',
+                                width:'70%',
+                                heigth:'50%',
+                                color:'white',
+                                borderRadius:'8px',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                flexDirection: 'column',
+                                padding:'3px',
+                            }}
+                        >
+
+                        coloquei está observação somente para observarmos como deve ser fetito a configuraqção do inline css  no react.
+                        
+
+
+
+Explicando o nosso codigo vemos que em nosso componente principal temos  3 camdas que sao as funções onde estamos chamando dentro de cada camada a proxima camada para mostrarmos que está uma dentro da outra.
+
+e o desafio será mostrarmos os dados do componente principal dentro da ultima camada  para exemplificarmos como é feito a passagem de dados entre os componentes sem o useContext somente usando o props
+
+
+props ==> soa as propriedades.
+
+no nosso exemplo abaixo substituimos a palavra reservada props por texto para uso didatico para compreendermos melhor a didadtica da passagem de parametros entre os Componetes.
+
+a unica modificação que fizemos no exemplo abaixo foi que para termos acesso a variavel texto na camada3 que foi declarada no componente principal foi que passamos em todos os componente o parametro dentro das funções .
+
+
+//Importar modulos
+import React from "react";
+
+//Componente principal
+function ComponentePrincipal (){
+
+
+    let texto = 'Dados do Componente Principal';
+    
+    
+    return(
+        <div className="Curso_React">
+            <div className="Ex">
+               <div className="container2">
+                    <h1>Compnente Principal</h1>
+                    {/* Chamando o componente camada1 aqui dentro */}
+                    <Camada1 texto={texto} />
+               </div>
+            </div>
+        </div>
+    )
+
+}
+
+// primeira camada
+function Camada1({texto}){
+
+    return(
+                        <div
+                            style={{
+                                backgroundColor:'red',
+                                width:'70%',
+                                heigth:'50%',
+                                color:'white',
+                                borderRadius:'8px',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                flexDirection: 'column',
+                                padding:'3px',
+                            }}
+                        >
+                            <h1>Camada 1</h1>
+                            {/* Cahamando o componente camanda2 */}
+                            <Camada2 texto={texto} />
+                        </div>
+    );
+}
+
+// Segunda Camada camada2
+
+function Camada2({texto}){
+
+    return(
+                        <div
+                            style={{
+                                backgroundColor:'#FF784F',
+                                width:'70%',
+                                heigth:'50%',
+                                color:'white',
+                                borderRadius:'8px',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                flexDirection: 'column',
+                                padding:'3px',
+                            }}
+                        >
+                            <h3>Camada 2</h3>
+                            <Camada3  texto={texto}/>
+                        </div>
+    );
+}
+
+// Ultimo Componente  camada3 
+
+function Camada3({texto}){
+
+    return(
+                        <div
+                            style={{
+                                backgroundColor:'#74D3AE',
+                                width:'70%',
+                                heigth:'50%',
+                                color:'white',
+                                borderRadius:'8px',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                flexDirection: 'column',
+                                padding:'3px',
+                            }}
+                        >
+                            <h4>Camada 3</h4>
+                            <p>{texto}</p>
+                        </div>
+    );
+}
+
+// Exportando o modulo
+export default ComponentePrincipal;
+
+
+perceba que agora dentro dos () parenteses contem a palavra texto ela é o parametro que viaja do componente principal ate a camada 3.
+
+Agora que aprendemos passar as propriedades entre os componentes atraves das props que sao os parametros passados na função vamos aprender de fato a trabalhar com o useContext.
+
+referencia da aula: https://alunos.workover.com.br/courses/847/lessons/16032
+
+
+Para ficar melhor de entender vamos criar um novo arquivo Chamado Ex07_01_Usecontext.js  ele vai conter o mesmo codigo porem vamos otimizar bastante o nosso codigo fazendo a passagen de parametros com o useContext.
+
+E simplesmente vamos remover os props dos parametros do corpo da função das camadas 
+
+
+primiramenteprecisamos fazer um aimportação de  modulos que vamos usar  
+que será os createContext e o useContext
+
+vamos criar um contexto  
+
+Onde nada mais é um local dentro do nosso componetne principal que podemos especificar de maneira global :
+    variaveis, funções ,states e outras opções de maneira global.
+    para que componentes que não se comuniquem tenha acesso algumas informações
+
+    Dentro deste campo onde substituimos 
+    o componete <camada1 /> por:
+      <contexto.Provider value={{texto}}/>
+      
+      e dentro value = neste campo podemos passar um conjunto de informações pode ser um afunção uma variavel um state e neste caso estamos passando uma variavel 
+      
+E em nosso arquivo criado ate o campo do componente principal ele vai ficar assim:
+
+E fazendo desta maneira utilizando o createContext em conjunto com o useContext a nossa varaivel {texto está disponivel para qualque destes componentes utilizar isso porque ela está visivel de maneira global.
+
+
+//Importar modulos
+import React, { createContext, useContext } from "react";
+
+
+
+
+// Criar Contexto
+
+const contexto = createContext();
+
+
+//Componente principal
+function ComponentePrincipal() {
+
+
+    let texto = 'Dados Componente Principal usando useContext ';
+
+
+    return (
+        <div className="Curso_React">
+            <div className="Ex">
+                <div className="container2">
+                    <h1>Compnente Principal</h1>
+                    {/* Usando o useContext */}
+                    <contexto.Provider value={{ texto }}>
+                        <Camada1 />
+                    </contexto.Provider>
+                </div>
+            </div>
+        </div>
+    )
+
+}
+
+
+//Importar modulos
+import React, { createContext, useContext } from "react";
+
+
+
+agora o nosso documento completo usando o useContext esta assim:
+
+
+//Importar modulos
+import React, { createContext, useContext } from "react";
+
+
+
+
+// Criar Contexto
+
+const contexto = createContext();
+
+
+//Componente principal
+function ComponentePrincipal() {
+
+
+    let texto = 'Dados Componente Principal usando useContext ';
+
+
+    return (
+        <div className="Curso_React">
+            <div className="Ex">
+                <div className="container2">
+                    <h1>Componente Principal</h1>
+                    {/* Usando o useContext */}
+                    <contexto.Provider value={{ texto }}>
+                        <Camada1 />
+                    </contexto.Provider>
+                </div>
+            </div>
+        </div>
+    )
+
+}
+
+// primeira camada
+function Camada1() {
+
+    return (
+        <div
+            style={{
+                backgroundColor: 'red',
+                width: '70%',
+                heigth: '50%',
+                color: 'white',
+                borderRadius: '8px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                flexDirection: 'column',
+                padding: '3px',
+            }}
+        >
+            <h1>Camada 1</h1>
+            {/* Cahamando o componente camanda2 */}
+            <Camada2 />
+        </div>
+    );
+}
+
+// Segunda Camada camada2
+
+function Camada2() {
+
+    return (
+        <div
+            style={{
+                backgroundColor: '#FF784F',
+                width: '70%',
+                heigth: '50%',
+                color: 'white',
+                borderRadius: '8px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                flexDirection: 'column',
+                padding: '3px',
+            }}
+        >
+            <h3>Camada 2</h3>
+            <Camada3 />
+        </div>
+    );
+}
+
+// Ultimo Componente  camada3 
+
+function Camada3() {
+
+    const { texto } = useContext(contexto);
+
+
+
+    return (
+        <div
+            style={{
+                backgroundColor: '#74D3AE',
+                width: '70%',
+                heigth: '50%',
+                color: 'white',
+                borderRadius: '8px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                flexDirection: 'column',
+                padding: '3px',
+            }}
+        >
+            <h4>Camada 3</h4>
+            <p>{texto}</p>
+        </div>
+    );
+}
+
+// Exportando o modulo
+export default ComponentePrincipal;
+
+
+Explicando o uso do useContext :
+
+orecisamo sentender que 
+1ª importamos o useContext e o createContext
+
+2ª criamos a variavel contexto no  escopo global isso é fora do escopo local das funçoes e fazemos isso dentro do campo que está marcado como comentario Criar contexto .
+
+E atribuimos o createContext() assim:
+
+const contexto = createContext();
+
+agora dentro do corpo da função do nosso componente principal  criamos o que nos queremos tranportar para os outros componentes pode ser um função uma variavel um state um objeto um array
+
+3ª agora usamos dentro do nosso return() uma tag que é usada como se fosse um componente o fato e que estamos usando essa sintace para chamar nosso contexto e depois fazemos o uso do provider e atribuimos no value dentro do duplo mustache {{}} a variavel ou a função ou array ou objeto ou state que  queiramos passar assim:
+
+                    <contexto.Provider value={{ texto }}>
+                        <Camada1 />
+                    </contexto.Provider>
+
+
+
+
+Agora vamos completar ainda mais o nosso codigo:
+
+referencia da aula: https://alunos.workover.com.br/courses/847/lessons/16033
+
+Exemplo pratico com useContext
+
+nesta aula vamos manipular o envio de states e funções.
+
+
+vamos criar um botão em nossa camada que quando ao clicado vamos alterar o backgroundColor da camada 3 
+
+
+para não perdermosa ideia do codigo crado anteriormente com useContext vamos criar um novo arquivo chamdo de Ex07_part2_UseContext.js
+
+E fazermos asdevidas alterações.
+
+criado o arquivo vamos fazer o import deste arquivo em nosso index.js que está até o momento assim:
+
+
+import React from 'react';
+import ReactDOM from 'react-dom';
+import './styles/curso.css';
+// import App from './App';
+// import Ex01_UseState from './Exemplo_Hooks/Ex01_UseState';
+import Ex02 from './Exemplo_Hooks/Ex02_UseeStatee.jsx';
+import Ex03 from './Exemplo_Hooks/Ex03_UseState.jsx';
+import Ex04 from './Exemplo_Hooks/Ex04_UseState';
+import Ex05 from './Exemplo_Hooks/Ex05_UseEffect';
+import Ex06 from './Exemplo_Hooks/Ex06_UseEffect';
+import Ex07 from './Exemplo_Hooks/Ex07_USeContext';
+import Ex07_01 from './Exemplo_Hooks/Ex07_01_UseContext';
+import Ex07_02 from './Exemplo_Hooks/Ex07_part2_UseContext'
+
+
+ReactDOM.render(
+  <React.StrictMode>
+
+    < div className="painel" >
+      <h2>Painel de Componetes do Curso de React</h2>
+      <Ex02 />
+      <Ex03 />
+      <Ex04 />
+      <Ex05 />
+      <Ex06 />
+      <Ex07 />
+      <Ex07_01 />
+      <Ex07_02 />
+    </div >
+  </React.StrictMode>,
+  document.getElementById('root')
+);
+
+note que fizemos a importação nesta linha assim:
+
+import Ex07_02 from './Exemplo_Hooks/Ex07_part2_UseContext'
+
+Agora vamos para este arquivo e vamos manipulalo.
+
+basicamente vamos implementar um useState em nosso componente principal:
+ onde vamos criar 1 variavel fundo e uma função alterarFundo:
+ onde em nossa variavel fundo vamos ter um state que vai ficar assim:
+ 
+  const [fundo, setfundo] = useState('#DDF45B')
+  
+  e tambem em nossa função alterarFundo vamos ter um aoperardor ternario onde ele terar a condição para alterar o backgroundColor da camada3
+  
+  Estamos usando operador ternario para o codigo ficar mais enchuto.
+  que vai ficar assim:
+  
+    const alterarFundo = () => {
+        // caso o fundo estiver em amarelo  ficara azul caso contrario volta a ficar amarelo
+        setfundo(fundo === '#DDF45B' ? '#3891A6' : '#DDF45B');
+    }
+ 
+ 
+ 
+ //Componente principal
+function ComponentePrincipal() {
+
+
+    let texto = 'Dados Componente Principal usando useContext ';
+
+    const [fundo, setfundo] = useState('#DDF45B')
+
+    const alterarFundo = () => {
+        // caso o fundo estiver em amarelo  ficara azul caso contrario volta a ficar amarelo
+        setfundo(fundo === '#DDF45B' ? '#3891A6' : '#DDF45B');
+    }
+
+    return (
+        <div className="Curso_React">
+            <div className="Ex">
+                <div className="container2">
+                    <h1>Componente Principal</h1>
+                    {/* Usando o useContext */}
+                    <contexto.Provider value={{ texto, fundo, alterarFundo }}>
+                        <Camada1 />
+                    </contexto.Provider>
+                </div>
+            </div>
+        </div>
+    )
+
+}
+
+acima esta o nosso compnente principal e perceba que dentro de contexto.Provider value=() estamos passando uma variavel, um state, e uma função para que esses dados possa se comunicar com todos os outros componentes.
+
+que vai ficar assim:
+
+  <contexto.Provider value={{ texto, fundo, alterarFundo }}>
+  
+  O bom de usar este editor que quando vc der dois cliques em um adessas variaveis ele sublinhara todas as outras dentro deste arquivo tornando a compreenção mais facil.
+  
+  Agora indo para a nossa camada3 vamos fazer outras implementações que vai ficar assim:
+  
+  function Camada3() {
+
+    const { texto, fundo, alterarFundo } = useContext(contexto);
+
+
+
+    return (
+        <div
+            style={{
+                backgroundColor: fundo,
+                width: '70%',
+                heigth: '50%',
+                color: 'red',
+                borderRadius: '8px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                flexDirection: 'column',
+                padding: '3px',
+            }}
+        >
+            <h4>Camada 3</h4>
+            <p>{texto}</p>
+            <button onClick={alterarFundo}>Clique Aqui</button>
+        </div>
+    );
+}
+
+perceba que na linha 666 estamos passando masi 2 variaveis fundo e alterarFundo
+que receberão o nosso useContext(contexto)
+
+que fica assim:
+
+const { texto, fundo, alterarFundo } = useContext(contexto);
+
+e tambem em nosso style={{ backgroundColor: fundo,  }} estaremos passando em nosso backgroundColor a variavel fundo 
+que por sua vez ja traz um state embutido e onde conseguiremos fazer a alteração no backgroundColor pois nesta variavel fundo ela possui o useState que está configurado o nosso setFundo onde temos o nosso operador ternario fazendo as respecquitivas trocas ja mencionado a logica no corpo da função.
+
+E por ultimo temos um aimplementação da tag <button></button>
+
+onde nela contera o evento de onClick={} que por sua vez estará chamndo a nossa função alterarFundo
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
